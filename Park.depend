@@ -1,0 +1,445 @@
+# depslib dependency file v1.0
+1437444190 source:c:\park\park\button.cpp
+	"Button.h"
+	<iostream>
+
+1397940876 c:\park\park\button.h
+	"SDL_Image.h"
+	<String>
+
+1376156342 c:\sdl2-devel-2.0.0-mingw\sdl2_image-2.0.0\i686-w64-mingw32\include\sdl2\sdl_image.h
+	"SDL.h"
+	"SDL_version.h"
+	"begin_code.h"
+	"close_code.h"
+
+1376276358 c:\sdl2-devel-2.0.0-mingw\sdl2-2.0.0\i686-w64-mingw32\include\sdl2\sdl.h
+	"SDL_main.h"
+	"SDL_stdinc.h"
+	"SDL_assert.h"
+	"SDL_atomic.h"
+	"SDL_audio.h"
+	"SDL_clipboard.h"
+	"SDL_cpuinfo.h"
+	"SDL_endian.h"
+	"SDL_error.h"
+	"SDL_events.h"
+	"SDL_joystick.h"
+	"SDL_gamecontroller.h"
+	"SDL_haptic.h"
+	"SDL_hints.h"
+	"SDL_loadso.h"
+	"SDL_log.h"
+	"SDL_messagebox.h"
+	"SDL_mutex.h"
+	"SDL_power.h"
+	"SDL_render.h"
+	"SDL_rwops.h"
+	"SDL_system.h"
+	"SDL_thread.h"
+	"SDL_timer.h"
+	"SDL_version.h"
+	"SDL_video.h"
+	"begin_code.h"
+	"close_code.h"
+
+1376276358 c:\sdl2-devel-2.0.0-mingw\sdl2-2.0.0\i686-w64-mingw32\include\sdl2\sdl_main.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1376276358 c:\sdl2-devel-2.0.0-mingw\sdl2-2.0.0\i686-w64-mingw32\include\sdl2\sdl_stdinc.h
+	"SDL_config.h"
+	<sys/types.h>
+	<stdio.h>
+	<stdlib.h>
+	<stddef.h>
+	<stdarg.h>
+	<stdlib.h>
+	<malloc.h>
+	<stddef.h>
+	<stdarg.h>
+	<memory.h>
+	<string.h>
+	<strings.h>
+	<inttypes.h>
+	<stdint.h>
+	<ctype.h>
+	<math.h>
+	<iconv.h>
+	"begin_code.h"
+	<alloca.h>
+	<malloc.h>
+	<malloc.h>
+	<malloc.h>
+	<stdlib.h>
+	"close_code.h"
+
+1376276358 c:\sdl2-devel-2.0.0-mingw\sdl2-2.0.0\i686-w64-mingw32\include\sdl2\sdl_config.h
+	"SDL_platform.h"
+
+1376276358 c:\sdl2-devel-2.0.0-mingw\sdl2-2.0.0\i686-w64-mingw32\include\sdl2\sdl_platform.h
+	"AvailabilityMacros.h"
+	"TargetConditionals.h"
+	"begin_code.h"
+	"close_code.h"
+
+1376276358 c:\sdl2-devel-2.0.0-mingw\sdl2-2.0.0\i686-w64-mingw32\include\sdl2\begin_code.h
+
+1376276358 c:\sdl2-devel-2.0.0-mingw\sdl2-2.0.0\i686-w64-mingw32\include\sdl2\close_code.h
+
+1376276358 c:\sdl2-devel-2.0.0-mingw\sdl2-2.0.0\i686-w64-mingw32\include\sdl2\sdl_assert.h
+	"SDL_config.h"
+	"begin_code.h"
+	<signal.h>
+	"close_code.h"
+
+1376276358 c:\sdl2-devel-2.0.0-mingw\sdl2-2.0.0\i686-w64-mingw32\include\sdl2\sdl_atomic.h
+	"SDL_stdinc.h"
+	"SDL_platform.h"
+	"begin_code.h"
+	<intrin.h>
+	<libkern/OSAtomic.h>
+	"close_code.h"
+
+1376276358 c:\sdl2-devel-2.0.0-mingw\sdl2-2.0.0\i686-w64-mingw32\include\sdl2\sdl_audio.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_endian.h"
+	"SDL_mutex.h"
+	"SDL_thread.h"
+	"SDL_rwops.h"
+	"begin_code.h"
+	"close_code.h"
+
+1376276358 c:\sdl2-devel-2.0.0-mingw\sdl2-2.0.0\i686-w64-mingw32\include\sdl2\sdl_error.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1376276358 c:\sdl2-devel-2.0.0-mingw\sdl2-2.0.0\i686-w64-mingw32\include\sdl2\sdl_endian.h
+	"SDL_stdinc.h"
+	<endian.h>
+	"begin_code.h"
+	"close_code.h"
+
+1376276358 c:\sdl2-devel-2.0.0-mingw\sdl2-2.0.0\i686-w64-mingw32\include\sdl2\sdl_mutex.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1376276358 c:\sdl2-devel-2.0.0-mingw\sdl2-2.0.0\i686-w64-mingw32\include\sdl2\sdl_thread.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_atomic.h"
+	"SDL_mutex.h"
+	"begin_code.h"
+	<process.h>
+	"close_code.h"
+
+1376276358 c:\sdl2-devel-2.0.0-mingw\sdl2-2.0.0\i686-w64-mingw32\include\sdl2\sdl_rwops.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1376276358 c:\sdl2-devel-2.0.0-mingw\sdl2-2.0.0\i686-w64-mingw32\include\sdl2\sdl_clipboard.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1376276358 c:\sdl2-devel-2.0.0-mingw\sdl2-2.0.0\i686-w64-mingw32\include\sdl2\sdl_cpuinfo.h
+	"SDL_stdinc.h"
+	<intrin.h>
+	<intrin.h>
+	<altivec.h>
+	<mmintrin.h>
+	<mm3dnow.h>
+	<xmmintrin.h>
+	<emmintrin.h>
+	"begin_code.h"
+	"close_code.h"
+
+1376276358 c:\sdl2-devel-2.0.0-mingw\sdl2-2.0.0\i686-w64-mingw32\include\sdl2\sdl_events.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_video.h"
+	"SDL_keyboard.h"
+	"SDL_mouse.h"
+	"SDL_joystick.h"
+	"SDL_gamecontroller.h"
+	"SDL_quit.h"
+	"SDL_gesture.h"
+	"SDL_touch.h"
+	"begin_code.h"
+	"close_code.h"
+
+1376276358 c:\sdl2-devel-2.0.0-mingw\sdl2-2.0.0\i686-w64-mingw32\include\sdl2\sdl_video.h
+	"SDL_stdinc.h"
+	"SDL_pixels.h"
+	"SDL_rect.h"
+	"SDL_surface.h"
+	"begin_code.h"
+	"close_code.h"
+
+1376276358 c:\sdl2-devel-2.0.0-mingw\sdl2-2.0.0\i686-w64-mingw32\include\sdl2\sdl_pixels.h
+	"begin_code.h"
+	"close_code.h"
+
+1376276358 c:\sdl2-devel-2.0.0-mingw\sdl2-2.0.0\i686-w64-mingw32\include\sdl2\sdl_rect.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_pixels.h"
+	"SDL_rwops.h"
+	"begin_code.h"
+	"close_code.h"
+
+1376276358 c:\sdl2-devel-2.0.0-mingw\sdl2-2.0.0\i686-w64-mingw32\include\sdl2\sdl_surface.h
+	"SDL_stdinc.h"
+	"SDL_pixels.h"
+	"SDL_rect.h"
+	"SDL_blendmode.h"
+	"SDL_rwops.h"
+	"begin_code.h"
+	"close_code.h"
+
+1376276358 c:\sdl2-devel-2.0.0-mingw\sdl2-2.0.0\i686-w64-mingw32\include\sdl2\sdl_blendmode.h
+	"begin_code.h"
+	"close_code.h"
+
+1376276358 c:\sdl2-devel-2.0.0-mingw\sdl2-2.0.0\i686-w64-mingw32\include\sdl2\sdl_keyboard.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_keycode.h"
+	"SDL_video.h"
+	"begin_code.h"
+	"close_code.h"
+
+1376276358 c:\sdl2-devel-2.0.0-mingw\sdl2-2.0.0\i686-w64-mingw32\include\sdl2\sdl_keycode.h
+	"SDL_stdinc.h"
+	"SDL_scancode.h"
+
+1376276358 c:\sdl2-devel-2.0.0-mingw\sdl2-2.0.0\i686-w64-mingw32\include\sdl2\sdl_scancode.h
+	"SDL_stdinc.h"
+
+1376276358 c:\sdl2-devel-2.0.0-mingw\sdl2-2.0.0\i686-w64-mingw32\include\sdl2\sdl_mouse.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_video.h"
+	"begin_code.h"
+	"close_code.h"
+
+1376276358 c:\sdl2-devel-2.0.0-mingw\sdl2-2.0.0\i686-w64-mingw32\include\sdl2\sdl_joystick.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1376276358 c:\sdl2-devel-2.0.0-mingw\sdl2-2.0.0\i686-w64-mingw32\include\sdl2\sdl_gamecontroller.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_joystick.h"
+	"begin_code.h"
+	"close_code.h"
+
+1376276358 c:\sdl2-devel-2.0.0-mingw\sdl2-2.0.0\i686-w64-mingw32\include\sdl2\sdl_quit.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+
+1376276358 c:\sdl2-devel-2.0.0-mingw\sdl2-2.0.0\i686-w64-mingw32\include\sdl2\sdl_gesture.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_video.h"
+	"SDL_touch.h"
+	"begin_code.h"
+	"close_code.h"
+
+1376276358 c:\sdl2-devel-2.0.0-mingw\sdl2-2.0.0\i686-w64-mingw32\include\sdl2\sdl_touch.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_video.h"
+	"begin_code.h"
+	"close_code.h"
+
+1376276358 c:\sdl2-devel-2.0.0-mingw\sdl2-2.0.0\i686-w64-mingw32\include\sdl2\sdl_haptic.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_joystick.h"
+	"begin_code.h"
+	"close_code.h"
+
+1376276358 c:\sdl2-devel-2.0.0-mingw\sdl2-2.0.0\i686-w64-mingw32\include\sdl2\sdl_hints.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1376276358 c:\sdl2-devel-2.0.0-mingw\sdl2-2.0.0\i686-w64-mingw32\include\sdl2\sdl_loadso.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1376276358 c:\sdl2-devel-2.0.0-mingw\sdl2-2.0.0\i686-w64-mingw32\include\sdl2\sdl_log.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1376276358 c:\sdl2-devel-2.0.0-mingw\sdl2-2.0.0\i686-w64-mingw32\include\sdl2\sdl_messagebox.h
+	"SDL_stdinc.h"
+	"SDL_video.h"
+	"begin_code.h"
+	"close_code.h"
+
+1376276358 c:\sdl2-devel-2.0.0-mingw\sdl2-2.0.0\i686-w64-mingw32\include\sdl2\sdl_power.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1376276358 c:\sdl2-devel-2.0.0-mingw\sdl2-2.0.0\i686-w64-mingw32\include\sdl2\sdl_render.h
+	"SDL_stdinc.h"
+	"SDL_rect.h"
+	"SDL_video.h"
+	"begin_code.h"
+	"close_code.h"
+
+1376276358 c:\sdl2-devel-2.0.0-mingw\sdl2-2.0.0\i686-w64-mingw32\include\sdl2\sdl_system.h
+	"SDL_stdinc.h"
+	"SDL_video.h"
+	"SDL_keyboard.h"
+	"begin_code.h"
+	"close_code.h"
+
+1376276358 c:\sdl2-devel-2.0.0-mingw\sdl2-2.0.0\i686-w64-mingw32\include\sdl2\sdl_timer.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1376276358 c:\sdl2-devel-2.0.0-mingw\sdl2-2.0.0\i686-w64-mingw32\include\sdl2\sdl_version.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1437424057 source:c:\park\park\cursor.cpp
+	"Cursor.h"
+
+1437424057 c:\park\park\cursor.h
+	"SDL_Image.h"
+	<string>
+
+1399848929 source:c:\park\park\gameclock.cpp
+	"gameClock.h"
+	<string>
+
+1399848929 c:\park\park\gameclock.h
+	<String>
+
+1437444190 source:c:\park\park\guestlogic.cpp
+	"guestLogic.h"
+
+1381273705 c:\park\park\guestlogic.h
+	"SDL_Image.h"
+	<cstdlib>
+	<time.h>
+	<math.h>
+	<iostream>
+
+1437442143 source:c:\park\park\island.cpp
+	"Island.h"
+	"SDL_Image.h"
+	<iostream>
+
+1437439919 c:\park\park\island.h
+	"Tile.h"
+	"Structure.h"
+	<cstdlib>
+	<time.h>
+	<math.h>
+	"SDL_Image.h"
+	"person.h"
+	"Label.h"
+	"overlay.h"
+	<string>
+
+1381195663 c:\park\park\tile.h
+	<string>
+	"SDL_Image.h"
+
+1381195828 c:\park\park\structure.h
+	"SDL_Image.h"
+	<String>
+
+1400121155 c:\park\park\person.h
+	<String>
+	"SDL_Image.h"
+	"guestLogic.h"
+	<iostream>
+	<time.h>
+	<math.h>
+	<deque>
+
+1399782078 c:\park\park\label.h
+	"SDL_ttf.h"
+	<String>
+
+1376156544 c:\sdl2-devel-2.0.0-mingw\sdl2_ttf-2.0.12\i686-w64-mingw32\include\sdl2\sdl_ttf.h
+	"SDL.h"
+	"begin_code.h"
+	"close_code.h"
+
+1383258587 c:\park\park\overlay.h
+	"SDL_Image.h"
+	<String>
+
+1397880215 source:c:\park\park\label.cpp
+	"Label.h"
+
+1437452908 source:c:\park\park\main.cpp
+	<iostream>
+	<stdio.h>
+	"window.h"
+	"Island.h"
+	"Button.h"
+	"overlay.h"
+	"Road.h"
+	"Cursor.h"
+	"SDL_ttf.h"
+	"SDL_Image.h"
+	"Timer.h"
+	"gameClock.h"
+	"Label.h"
+
+1437438425 c:\park\park\window.h
+	<SDL.h>
+	<String>
+
+1381032014 c:\park\park\road.h
+	"SDL_Image.h"
+	<String>
+
+1399771625 c:\park\park\timer.h
+
+1437432175 source:c:\park\park\overlay.cpp
+	"overlay.h"
+
+1437429866 source:c:\park\park\person.cpp
+	"person.h"
+
+1437442143 source:c:\park\park\structure.cpp
+	"Structure.h"
+
+1437276689 source:c:\park\park\tile.cpp
+	"Tile.h"
+
+1399771634 source:c:\park\park\timer.cpp
+	"SDL/SDL.h"
+	"timer.h"
+
+1383107843 source:c:\park\park\window.cpp
+	"window.h"
+	"stdio.h"
+	<string>
+	"SDL_Image.h"
+	"SDL_ttf.h"
+

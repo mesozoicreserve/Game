@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="Park" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="bin/Debug/Park" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Debug/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+				</Compiler>
+			</Target>
+			<Target title="Release">
+				<Option output="bin/Release/Park" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Release/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O2" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+			<Add directory="../../SDL2-devel-2.0.0-mingw/SDL2-2.0.0/i686-w64-mingw32/include/SDL2" />
+			<Add directory="../../SDL2-devel-2.0.0-mingw/SDL2_image-2.0.0/i686-w64-mingw32/include/SDL2" />
+			<Add directory="../../SDL2-devel-2.0.0-mingw/SDL2_ttf-2.0.12/i686-w64-mingw32/include/SDL2" />
+		</Compiler>
+		<Linker>
+			<Add option="-lmingw32 -lSDL2main -lSDL2 -lSDL_Image -lSDL2_ttf" />
+			<Add directory="../../SDL2-devel-2.0.0-mingw/SDL2-2.0.0/i686-w64-mingw32/lib" />
+			<Add directory="../../SDL2-devel-2.0.0-mingw/SDL2_image-2.0.0/i686-w64-mingw32/lib" />
+			<Add directory="../../SDL2-devel-2.0.0-mingw/SDL2_ttf-2.0.12/i686-w64-mingw32/lib" />
+		</Linker>
+		<Unit filename="Button.cpp" />
+		<Unit filename="Button.h" />
+		<Unit filename="Cursor.cpp" />
+		<Unit filename="Cursor.h" />
+		<Unit filename="Feature.h" />
+		<Unit filename="Island.cpp" />
+		<Unit filename="Island.h" />
+		<Unit filename="Label.h" />
+		<Unit filename="Structure.cpp" />
+		<Unit filename="Structure.h" />
+		<Unit filename="Tile.cpp" />
+		<Unit filename="Tile.h" />
+		<Unit filename="Timer.h" />
+		<Unit filename="gameClock.cpp" />
+		<Unit filename="gameClock.h" />
+		<Unit filename="guestLogic.cpp" />
+		<Unit filename="guestLogic.h" />
+		<Unit filename="label.cpp" />
+		<Unit filename="main.cpp" />
+		<Unit filename="overlay.cpp" />
+		<Unit filename="overlay.h" />
+		<Unit filename="person.cpp" />
+		<Unit filename="person.h" />
+		<Unit filename="timer.cpp" />
+		<Unit filename="window.cpp" />
+		<Unit filename="window.h" />
+		<Extensions>
+			<code_completion />
+			<envvars />
+			<debugger />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>
