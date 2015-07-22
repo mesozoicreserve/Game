@@ -23,12 +23,14 @@ private:
 public:
     Label();
     Label(int,int,string,int,SDL_Renderer*);
+    Label(int,int,string,int,bool,SDL_Renderer*);
+
     void printLabel(SDL_Renderer*);
     void free();
     bool loadFromRenderedText(SDL_Renderer*);
     //bool loadFromFile(SDL_Renderer*);
     bool loadMedia(SDL_Renderer*);
-    void createLabel(int ,int, string, int,SDL_Renderer*);
+    void createLabel(int ,int, string, int,bool,SDL_Renderer*);
     void setText(string,SDL_Renderer*);
     bool isShown();
     void show();

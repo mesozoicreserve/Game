@@ -13,6 +13,7 @@ private:
     bool in;
     bool clicked;
     std::string IMG_DIR;
+    std::string buttonName;
 
 public:
     SDL_Rect getPosition();
@@ -30,4 +31,5 @@ public:
     bool isShown();
     void hide();
     void show();
+    std::string getName();
 };

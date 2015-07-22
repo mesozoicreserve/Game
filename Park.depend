@@ -1,9 +1,9 @@
 # depslib dependency file v1.0
-1437532323 source:c:\park\park\button.cpp
+1437542141 source:c:\park\park\button.cpp
 	"Button.h"
 	<iostream>
 
-1437532323 c:\park\park\button.h
+1437542141 c:\park\park\button.h
 	"SDL_Image.h"
 	<String>
 
@@ -345,12 +345,12 @@
 	<math.h>
 	<iostream>
 
-1437532323 source:c:\park\park\island.cpp
+1437540990 source:c:\park\park\island.cpp
 	"Island.h"
 	"SDL_Image.h"
 	<iostream>
 
-1437439919 c:\park\park\island.h
+1437538181 c:\park\park\island.h
 	"Tile.h"
 	"Structure.h"
 	<cstdlib>
@@ -379,7 +379,7 @@
 	<math.h>
 	<deque>
 
-1399782078 c:\park\park\label.h
+1437540889 c:\park\park\label.h
 	"SDL_ttf.h"
 	<String>
 
@@ -392,10 +392,10 @@
 	"SDL_Image.h"
 	<String>
 
-1397880215 source:c:\park\park\label.cpp
+1437540888 source:c:\park\park\label.cpp
 	"Label.h"
 
-1437533653 source:c:\park\park\main.cpp
+1437542193 source:c:\park\park\main.cpp
 	<iostream>
 	<stdio.h>
 	"window.h"
@@ -420,7 +420,7 @@
 
 1399771625 c:\park\park\timer.h
 
-1437432175 source:c:\park\park\overlay.cpp
+1437539486 source:c:\park\park\overlay.cpp
 	"overlay.h"
 
 1437429866 source:c:\park\park\person.cpp

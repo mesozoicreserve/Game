@@ -1,4 +1,6 @@
 #define BUILDMENU_ITEMS 5
+#define LABEL_NUM 4
+
 #include <iostream>
 #include <stdio.h>
 #include "window.h"
@@ -17,7 +19,7 @@ using namespace std;
 
 bool checkUICollision(int x, int y, Button buttonToCheck);
 void drawBackground(SDL_Renderer*,int,int);
-void isCursorInButton(Button);
+bool isCursorInButton(Button);
 void buildButtonsOff();
 SDL_Texture* testButton;
 
@@ -38,11 +40,10 @@ int main (int argc, char* args[])
     gameClock dateTime(8,1,2017,8,0);
 
 
-    Button aButton("BuildButton",5,465,true);
-    Button labButton("LabButton",76,465,true);
+    Button aButton("BuildButton",1,455,true);
+    Button labButton("LabButton",101,455,true);
 
-    Button buildMenuButtons[4];
-
+    Button buildMenuButtons[BUILDMENU_ITEMS];
 
     buildMenuButtons[0].newButton("RoadButton",10,370,false);
     buildMenuButtons[1].newButton("FenceButton",10,310,false);
@@ -53,9 +54,14 @@ int main (int argc, char* args[])
 
     Overlay BuildMenuOverlay("SelectionMenu",1,1,200,false,renderer);
     Overlay CornerStatusOverlay("CornerStatus",950,400,200,true,renderer);
+    Overlay buildingContextOverlay("BuildContext",189,1,200,false,renderer);
 
-    Label dateLabel(1030,450,dateTime.getDate(),14,renderer);
-    Label timeLabel(1100,450,dateTime.getTime(),14,renderer);
+    Label mainLabels[LABEL_NUM];
+
+    mainLabels[0].createLabel(995,410,"ISLA DOUCHEBAR",28,true,renderer);
+    mainLabels[1].createLabel(1030,450,dateTime.getDate(),14,true,renderer);
+    mainLabels[2].createLabel(1100,450,dateTime.getTime(),14,true,renderer);
+    mainLabels[3].createLabel(210,5,"",16,false,renderer);
 
     Timer fpsTimer;
     Timer capTimer;
@@ -137,7 +143,25 @@ int main (int argc, char* args[])
                 {
                     for (int i=0;i<BUILDMENU_ITEMS;i++)
                     {
-                        isCursorInButton(buildMenuButtons[i]);
+                        //Show and update the overlay, also process the color change of the button
+                        if (isCursorInButton(buildMenuButtons[i]))
+                        {
+                            buildingContextOverlay.show();
+                            //Update and show Context label
+                            mainLabels[3].setText(buildMenuButtons[i].getName(),renderer);
+                            mainLabels[3].show();
+                            //break from loop (or overlay will turn off)
+                            i=1000;
+                        }
+                        else
+                        {
+                            //Lock overlay when build mode is on
+                            if (buildMode == false)
+                            {
+                                buildingContextOverlay.hide();
+                                mainLabels[3].hide();
+                            }
+                        }
                     }
                 }
 
@@ -150,30 +174,19 @@ int main (int argc, char* args[])
                 SDL_GetMouseState( &x, &y );
 
                 gameIsland.checkGuestMouseClick();
-
                 //Build mode
                 if (buildMode == true && buildingID != 0)
                 {
-                    //Build a road
-                    if (buildMenuButtons[0].isClicked() && gameIsland.isTileBuildable(mouseCursor.getAbsoluteX(),mouseCursor.getAbsoluteY(),buildingID))
+                    for (int i=0; i<BUILDMENU_ITEMS;i++)
                     {
-                        gameIsland.createStructure(buildingID,mouseCursor.getAbsoluteX(),mouseCursor.getAbsoluteY());
+                        //Check if we can build on the tile
+                        if (buildMenuButtons[i].isClicked() && gameIsland.isTileBuildable(mouseCursor.getAbsoluteX(),mouseCursor.getAbsoluteY(),buildingID))
+                        {
+                            //Build the building
+                            gameIsland.createStructure(buildingID,mouseCursor.getAbsoluteX(),mouseCursor.getAbsoluteY());
+                        }
                     }
-                    //Build a Research lab
-                      if (buildMenuButtons[2].isClicked() && gameIsland.isTileBuildable(mouseCursor.getAbsoluteX(),mouseCursor.getAbsoluteY(),buildingID))
-                    {
-                        gameIsland.createStructure(buildingID,mouseCursor.getAbsoluteX(),mouseCursor.getAbsoluteY());
-                    }
-                    //Build a dino fence
-                    if (buildMenuButtons[1].isClicked() && gameIsland.isTileBuildable(mouseCursor.getAbsoluteX(),mouseCursor.getAbsoluteY(),buildingID))
-                    {
-                        gameIsland.createStructure(buildingID,mouseCursor.getAbsoluteX(),mouseCursor.getAbsoluteY());
-                    }
-                    //Build a Dock
-                    if (buildMenuButtons[3].isClicked() && gameIsland.isTileBuildable(mouseCursor.getAbsoluteX(),mouseCursor.getAbsoluteY(),buildingID))
-                    {
-                        gameIsland.createStructure(buildingID,mouseCursor.getAbsoluteX(),mouseCursor.getAbsoluteY());
-                    }
+
                 }
 
                 bool buildMenuOn = BuildMenuOverlay.isShown();
@@ -218,128 +231,66 @@ int main (int argc, char* args[])
                     //Build Menu
                     if (BuildMenuOverlay.isShown())
                     {
-                        //Start Building Roads
-                        if (checkUICollision(x,y,buildMenuButtons[0]) == true)
+                        for (int i=0; i<BUILDMENU_ITEMS;i++)
                         {
-
-                            //Close build menu elements
-                            for (int i=0; i<BUILDMENU_ITEMS;i++)
+                            //Start Building Roads
+                            if (checkUICollision(x,y,buildMenuButtons[i]) == true)
                             {
-                                buildMenuButtons[i].onRelease();
-                            }
-                            buildMenuButtons[0].onClick();
-                            SDL_ShowCursor(0);
+                                buildMenuButtons[i].onClick();
+                                //Close build menu elements
+                                for (int j=0; j<BUILDMENU_ITEMS;j++)
+                                {
+                                    if (j != i)
+                                    {
+                                        buildMenuButtons[j].onRelease();
+                                    }
+                                }
+                                SDL_ShowCursor(0);
+                                //Toggle Build Mode
+                                if (buildMenuButtons[i].isClicked())
+                                {
+                                    buildMode = true;
 
-                            //Toggle Build Mode
-                            if (buildMenuButtons[0].isClicked())
-                            {
-                                buildMode = true;
-                                buildingID = 1;
-                                mouseCursor.updateSize(1);
+                                    switch (i)
+                                    {
+                                        case 0:
+                                            buildingID = 1;
+                                            mouseCursor.updateSize(1);
+                                            break;
+                                        case 1:
+                                            buildingID = 3;
+                                            mouseCursor.updateSize(1);
+                                            break;
+                                        case 2:
+                                            buildingID = 2;
+                                            mouseCursor.updateSize(4);
+                                            break;
+                                        case 3:
+                                            buildingID = 4;
+                                            mouseCursor.updateSize(5);
+                                            break;
+                                        case 4:
+                                            buildingID = 5;
+                                            mouseCursor.updateSize(1);
+                                            break;
+                                    }
 
-                            }
-                            else
-                            {
-                                buildMode = false;
-                                buildingID = 0;
-                                mouseCursor.updateCursorColor(255,255,255);
-                                mouseCursor.updateSize(1);
-                                SDL_ShowCursor(1);
-
-                            }
-
+                                }
+                                else
+                                {
+                                    buildMode = false;
+                                    buildingID = 0;
+                                    mouseCursor.updateCursorColor(255,255,255);
+                                    mouseCursor.updateSize(1);
+                                    SDL_ShowCursor(1);
+                                }
                         }
-                        //Start building fences
-                        if (checkUICollision(x,y,buildMenuButtons[1]) == true)
-                        {
-                            //Close build menu elements
-                            for (int i=0; i<BUILDMENU_ITEMS;i++)
-                            {
-                                buildMenuButtons[i].onRelease();
-                            }
-                            buildMenuButtons[1].onClick();
-
-                            SDL_ShowCursor(0);
-
-                             //Toggle Build Mode
-                            if (buildMenuButtons[1].isClicked())
-                            {
-                                buildMode = true;
-                                buildingID = 3;
-                                mouseCursor.updateSize(1);
-                            }
-                            else
-                            {
-                                buildMode = false;
-                                buildingID = 0;
-                                mouseCursor.updateCursorColor(255,255,255);
-                                mouseCursor.updateSize(1);
-                                SDL_ShowCursor(1);
-
-                            }
-                        }
-                        //Build a lab
-                        if (checkUICollision(x,y,buildMenuButtons[2]) == true)
-                        {
-
-                            //Close build menu elements
-                            for (int i=0; i<BUILDMENU_ITEMS;i++)
-                            {
-                                buildMenuButtons[i].onRelease();
-                            }
-                            //Click button, release all others
-                            buildMenuButtons[2].onClick();
-
-                            //Toggle Build Mode
-                            if (buildMenuButtons[2].isClicked())
-                            {
-                                buildMode = true;
-                                buildingID = 2;
-                                mouseCursor.updateSize(4);
-                            }
-                            else
-                            {
-                                buildMode = false;
-                                buildingID = 0;
-                                mouseCursor.updateCursorColor(255,255,255);
-                                mouseCursor.updateSize(1);
-                                SDL_ShowCursor(1);
-
-                            }
-
-                        }
-
-                        //Build a lab
-                        if (checkUICollision(x,y,buildMenuButtons[3]) == true)
-                        {
-
-                            //Close build menu elements
-                            for (int i=0; i<BUILDMENU_ITEMS;i++)
-                            {
-                                buildMenuButtons[i].onRelease();
-                            }
-                            //Click button, release all others
-                            buildMenuButtons[3].onClick();
-
-
-                            //Toggle Build Mode
-                            if (buildMenuButtons[3].isClicked())
-                            {
-                                buildMode = true;
-                                buildingID = 4;
-                                mouseCursor.updateSize(5);
-                            }
-                            else
-                            {
-                                buildMode = false;
-                                buildingID = 0;
-                                mouseCursor.updateCursorColor(255,255,255);
-                                mouseCursor.updateSize(1);
-                                SDL_ShowCursor(1);
-                            }
-                        }
+                    }
                 }
-            }
+
+
+
+        }
 
         }
 
@@ -403,6 +354,10 @@ int main (int argc, char* args[])
          {
              BuildMenuOverlay.applySurface(renderer);
          }
+         if (buildingContextOverlay.isShown())
+         {
+             buildingContextOverlay.applySurface(renderer);
+         }
          //Build -> road
          for (int i=0;i<BUILDMENU_ITEMS;i++)
          {
@@ -420,8 +375,13 @@ int main (int argc, char* args[])
 
 
          //labels
-         dateLabel.printLabel(renderer);
-         timeLabel.printLabel(renderer);
+         for (int i=0;i<LABEL_NUM;i++)
+         {
+             if (mainLabels[i].isShown())
+             {
+                 mainLabels[i].printLabel(renderer);
+             }
+         }
 
          //Build mode grid
          if (buildMode == true)
@@ -440,8 +400,10 @@ int main (int argc, char* args[])
         if (countedFrames >= 60)
         {
             dateTime.cycleMinute();
-            timeLabel.setText(dateTime.getTime(),renderer);
-            dateLabel.setText(dateTime.getDate(),renderer);
+            //Update labels
+            mainLabels[2].setText(dateTime.getTime(),renderer);
+            mainLabels[1].setText(dateTime.getDate(),renderer);
+
             countedFrames = 0;
         }
 
@@ -492,7 +454,7 @@ bool checkUICollision(int x, int y, Button buttonToCheck)
 
 
 
-void isCursorInButton(Button buttonToCheck)
+bool isCursorInButton(Button buttonToCheck)
     {
         int x,y;
         SDL_GetMouseState( &x, &y );
@@ -502,10 +464,12 @@ void isCursorInButton(Button buttonToCheck)
             if(checkUICollision(x,y,buttonToCheck))
             {
                 buttonToCheck.mouseIn();
+                return true;
             }
             else
             {
                 buttonToCheck.mouseOut();
+                return false;
             }
          }
     }

@@ -56,6 +56,7 @@ void Button::newButton(std::string buttonName, int iX, int iY, bool vis)
     position.x=iX;
     position.y=iY;
     shown = vis;
+    buttonName="undefined";
 
     IMG_DIR = "res/img/";
 
@@ -67,18 +68,20 @@ void Button::genButton()
     buttonTexture = NULL;
     if(name == "BuildButton" )
     {
-        position.w=70;
-        position.h=30;
+        position.w=100;
+        position.h=45;
         resName = IMG_DIR + "buttons/build.bmp";
         alpha=255;
+        buttonName="Build";
     }
 
     if(name == "LabButton" )
     {
-        position.w=70;
-        position.h=30;
+        position.w=100;
+        position.h=45;
         resName = IMG_DIR + "buttons/lab.bmp";
         alpha=255;
+        buttonName="Research";
     }
     if(name == "RoadButton" )
     {
@@ -86,6 +89,7 @@ void Button::genButton()
         position.h=50;
         resName = IMG_DIR + "buttons/roadbutton.bmp";
         alpha=255;
+        buttonName="Paved Road";
     }
     if(name == "FenceButton" )
     {
@@ -93,6 +97,7 @@ void Button::genButton()
         position.h=50;
         resName = IMG_DIR + "buttons/fence.bmp";
         alpha=255;
+        buttonName="Chain-link Fence";
     }
     if(name == "ResearchLabButton" )
     {
@@ -100,6 +105,7 @@ void Button::genButton()
         position.h=50;
         resName = IMG_DIR + "buttons/researchlabbutton.bmp";
         alpha=255;
+        buttonName="Laboratory";
     }
     if(name == "DockButton" )
     {
@@ -107,6 +113,7 @@ void Button::genButton()
         position.h=50;
         resName = IMG_DIR + "buttons/dockbutton.bmp";
         alpha=255;
+        buttonName="Wharf";
     }
     if(name == "pathButton" )
     {
@@ -114,6 +121,7 @@ void Button::genButton()
         position.h=50;
         resName = IMG_DIR + "buttons/pathbutton.bmp";
         alpha=255;
+        buttonName="Dirt Path";
     }
 }
 
@@ -190,5 +198,9 @@ void Button::show()
 void Button::hide()
 {
     shown = false;
+}
+std::string Button::getName()
+{
+    return buttonName;
 }
 

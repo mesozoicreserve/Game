@@ -67,6 +67,13 @@ void Overlay::genOverlay()
         position.h=100;
         resName="GuestMouseOverOverlay.bmp";
     }
+
+    if(name == "BuildContext" )
+    {
+        position.w=150;
+        position.h=100;
+        resName = "buildcontext.bmp";
+    }
 }
 
 

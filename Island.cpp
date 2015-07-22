@@ -39,13 +39,11 @@ Island::Island(SDL_Renderer* renderer)
 
     selectedIndex = -1;
 
-    //todo: we can move this label back to main
-    parkNameLabel.createLabel(995,410,"ISLA DOUCHEBAR",28,renderer);
 
     guestMouseOverOverlay.createOverlay("GuestMouseOverOverlay",825,400,200,false,renderer);
 
-    personNameLabel.createLabel(840,405," ",12,renderer);
-    personAgeLabel.createLabel(840,420," ",12,renderer);
+    personNameLabel.createLabel(840,405," ",12,false,renderer);
+    personAgeLabel.createLabel(840,420," ",12,false,renderer);
 
     genWorld();
 
@@ -817,8 +815,6 @@ void Island::checkGuestMouseClick()
 //Handles the rendered text rendering
 void Island::printText(SDL_Renderer* renderer)
 {
-
-    parkNameLabel.printLabel(renderer);
 
     if (guestMouseOverOverlay.isShown() || guestMouseOverOverlay.isLocked())
     {

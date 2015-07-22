@@ -1,6 +1,6 @@
 #include "Label.h"
 
-void Label::createLabel(int ix,int iy, string itext, int isize,SDL_Renderer* renderer)
+void Label::createLabel(int ix,int iy, string itext, int isize,bool on,SDL_Renderer* renderer)
 {
     fontFile="GenBasB.ttf";
 
@@ -9,7 +9,7 @@ void Label::createLabel(int ix,int iy, string itext, int isize,SDL_Renderer* ren
     y = iy;
     fontSize=isize;
 
-    shown = true;
+    shown = on;
 
     textColor.a=255;
     textColor.r=195;
@@ -30,9 +30,13 @@ void Label::createLabel(int ix,int iy, string itext, int isize,SDL_Renderer* ren
 
 Label::Label(int ix,int iy, string itext, int isize,SDL_Renderer* renderer)
 {
-    createLabel(ix,iy,itext,isize,renderer);
+    createLabel(ix,iy,itext,isize,true,renderer);
 }
 
+Label::Label(int ix,int iy, string itext, int isize,bool on,SDL_Renderer* renderer)
+{
+    createLabel(ix,iy,itext,isize,on,renderer);
+}
 
 Label::Label()
 {
