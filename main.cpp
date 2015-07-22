@@ -278,11 +278,14 @@ int main (int argc, char* args[])
                                 }
                                 else
                                 {
-                                    buildMode = false;
-                                    buildingID = 0;
-                                    mouseCursor.updateCursorColor(255,255,255);
-                                    mouseCursor.updateSize(1);
-                                    SDL_ShowCursor(1);
+                                    if ((buildingID) != 1)
+                                    {
+                                        buildMode = false;
+                                        buildingID = 0;
+                                        mouseCursor.updateCursorColor(255,255,255);
+                                        mouseCursor.updateSize(1);
+                                        SDL_ShowCursor(1);
+                                    }
                                 }
                         }
                     }
