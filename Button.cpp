@@ -47,6 +47,11 @@ void Button::onRelease()
 
 Button::Button(std::string buttonName,int iX, int iY, bool vis)
 {
+    newButton(buttonName,iX,iY,vis);
+}
+
+void Button::newButton(std::string buttonName, int iX, int iY, bool vis)
+{
     name=buttonName;
     position.x=iX;
     position.y=iY;
@@ -57,7 +62,6 @@ Button::Button(std::string buttonName,int iX, int iY, bool vis)
 
     genButton();
 }
-
 void Button::genButton()
 {
     buttonTexture = NULL;

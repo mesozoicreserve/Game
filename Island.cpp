@@ -643,14 +643,18 @@ bool Island::isTileBuildable(int x, int y, int buildingID)
     // 4x4 Land buildings - 2:Research Lab
     if (buildingID == 2)
     {
+        //cycle through tiles
         for (int i=0;i<4;i++)
         {
             for (int j=0;j<4;j++)
             {
+
+                //Check 1: is there a building already?
                 if (structureMap[xpos+j][ypos+i].getStructureType() != 0)
                 {
                     return false;
                 }
+                //Check 2: is this  square water?
                 if (grid[xpos+j][ypos+i].getType() == 1)
                 {
                     return false;
@@ -659,22 +663,44 @@ bool Island::isTileBuildable(int x, int y, int buildingID)
         }
     }
 
+    //Dock - Special rules
     if (buildingID == 4)
     {
-        for (int i=0;i<4;i++)
+        //Cycle through first two rows
+        for (int i=0;i<2;i++)
         {
-            for (int j=0;j<4;j++)
+            for (int j=0;j<5;j++)
             {
+                //Check 1: is there a building already?
                 if (structureMap[xpos+j][ypos+i].getStructureType() != 0)
                 {
                     return false;
                 }
+                //make sure the dock parts are in water
+                if (grid[xpos+j][ypos+i].getType() != 1)
+                {
+                    return false;
+                }
+            }
+        }
+        //Normal check for rest of tiles
+        for (int i=2;i<5;i++)
+        {
+             for (int j=0;j<5;j++)
+            {
+                //Check 1: is there a building already?
+                if (structureMap[xpos+j][ypos+i].getStructureType() != 0)
+                {
+                    return false;
+                }
+                //Check 2: is this  square water?
                 if (grid[xpos+j][ypos+i].getType() == 1)
                 {
                     return false;
                 }
             }
         }
+
     }
 
     return true;

@@ -18,6 +18,7 @@ public:
     SDL_Rect getPosition();
     Button();
     Button(std::string,int,int,bool);
+    void newButton(std::string,int,int,bool);
     void genButton();
     SDL_Texture* loadTexture( std::string path,SDL_Renderer* renderer );
     void applySurface(SDL_Renderer* renderer);

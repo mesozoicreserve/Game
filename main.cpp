@@ -1,3 +1,4 @@
+#define BUILDMENU_ITEMS 5
 #include <iostream>
 #include <stdio.h>
 #include "window.h"
@@ -17,6 +18,7 @@ using namespace std;
 bool checkUICollision(int x, int y, Button buttonToCheck);
 void drawBackground(SDL_Renderer*,int,int);
 void isCursorInButton(Button);
+void buildButtonsOff();
 SDL_Texture* testButton;
 
 int main (int argc, char* args[])
@@ -38,11 +40,17 @@ int main (int argc, char* args[])
 
     Button aButton("BuildButton",5,465,true);
     Button labButton("LabButton",76,465,true);
-    Button roadButton("RoadButton",10,370,false);
-    Button fenceButton("FenceButton",10,310,false);
-    Button buildLabButton("ResearchLabButton",10,250,false);
-    Button buildDockButton("DockButton",10,20,false);
-    Button buildPathButton("pathButton",10,90,false);
+
+    Button buildMenuButtons[4];
+
+
+    buildMenuButtons[0].newButton("RoadButton",10,370,false);
+    buildMenuButtons[1].newButton("FenceButton",10,310,false);
+    buildMenuButtons[2].newButton("ResearchLabButton",10,250,false);
+    buildMenuButtons[3].newButton("DockButton",10,20,false);
+    buildMenuButtons[4].newButton("pathButton",10,90,false);
+
+
     Overlay BuildMenuOverlay("SelectionMenu",1,1,200,false,renderer);
     Overlay CornerStatusOverlay("CornerStatus",950,400,200,true,renderer);
 
@@ -127,10 +135,10 @@ int main (int argc, char* args[])
 
                 if (buildMenuOn)
                 {
-                    isCursorInButton(roadButton);
-                    isCursorInButton(fenceButton);
-                    isCursorInButton(buildLabButton);
-                    isCursorInButton(buildDockButton);
+                    for (int i=0;i<BUILDMENU_ITEMS;i++)
+                    {
+                        isCursorInButton(buildMenuButtons[i]);
+                    }
                 }
 
 
@@ -147,22 +155,22 @@ int main (int argc, char* args[])
                 if (buildMode == true && buildingID != 0)
                 {
                     //Build a road
-                    if (roadButton.isClicked() && gameIsland.isTileBuildable(mouseCursor.getAbsoluteX(),mouseCursor.getAbsoluteY(),buildingID))
+                    if (buildMenuButtons[0].isClicked() && gameIsland.isTileBuildable(mouseCursor.getAbsoluteX(),mouseCursor.getAbsoluteY(),buildingID))
                     {
                         gameIsland.createStructure(buildingID,mouseCursor.getAbsoluteX(),mouseCursor.getAbsoluteY());
                     }
                     //Build a Research lab
-                      if (buildLabButton.isClicked() && gameIsland.isTileBuildable(mouseCursor.getAbsoluteX(),mouseCursor.getAbsoluteY(),buildingID))
+                      if (buildMenuButtons[2].isClicked() && gameIsland.isTileBuildable(mouseCursor.getAbsoluteX(),mouseCursor.getAbsoluteY(),buildingID))
                     {
                         gameIsland.createStructure(buildingID,mouseCursor.getAbsoluteX(),mouseCursor.getAbsoluteY());
                     }
                     //Build a dino fence
-                    if (fenceButton.isClicked() && gameIsland.isTileBuildable(mouseCursor.getAbsoluteX(),mouseCursor.getAbsoluteY(),buildingID))
+                    if (buildMenuButtons[1].isClicked() && gameIsland.isTileBuildable(mouseCursor.getAbsoluteX(),mouseCursor.getAbsoluteY(),buildingID))
                     {
                         gameIsland.createStructure(buildingID,mouseCursor.getAbsoluteX(),mouseCursor.getAbsoluteY());
                     }
                     //Build a Dock
-                    if (buildDockButton.isClicked() && gameIsland.isTileBuildable(mouseCursor.getAbsoluteX(),mouseCursor.getAbsoluteY(),buildingID))
+                    if (buildMenuButtons[3].isClicked() && gameIsland.isTileBuildable(mouseCursor.getAbsoluteX(),mouseCursor.getAbsoluteY(),buildingID))
                     {
                         gameIsland.createStructure(buildingID,mouseCursor.getAbsoluteX(),mouseCursor.getAbsoluteY());
                     }
@@ -179,16 +187,12 @@ int main (int argc, char* args[])
                     if (buildMenuOn == true)
                     {
                         //Close build menu elements
+                        for (int i=0; i<BUILDMENU_ITEMS;i++)
+                        {
+                            buildMenuButtons[i].hide();
+                            buildMenuButtons[i].onRelease();
+                        }
                         BuildMenuOverlay.hide();
-                        fenceButton.hide();
-                        roadButton.hide();
-                        buildDockButton.hide();
-                        buildLabButton.hide();
-                        buildPathButton.hide();
-                        fenceButton.onRelease();
-                        roadButton.onRelease();
-                        buildDockButton.onRelease();
-                        buildPathButton.onRelease();
 
                         buildMode = false;
                         mouseCursor.updateCursorColor(255,255,255);
@@ -197,12 +201,11 @@ int main (int argc, char* args[])
                     else
                     {
                         //Show Build Menu Elements
-                        fenceButton.show();
-                        roadButton.show();
-                        buildLabButton.show();
-                        buildDockButton.show();
+                         for (int i=0; i<BUILDMENU_ITEMS;i++)
+                        {
+                            buildMenuButtons[i].show();
+                        }
                         BuildMenuOverlay.show();
-                        buildPathButton.show();
                     }
                     //END Build button click;
                 }
@@ -216,17 +219,19 @@ int main (int argc, char* args[])
                     if (BuildMenuOverlay.isShown())
                     {
                         //Start Building Roads
-                        if (checkUICollision(x,y,roadButton) == true)
+                        if (checkUICollision(x,y,buildMenuButtons[0]) == true)
                         {
-                            roadButton.onClick();
-                            fenceButton.onRelease();
-                            buildLabButton.onRelease();
-                            buildDockButton.onRelease();
-                            buildPathButton.onRelease();
+
+                            //Close build menu elements
+                            for (int i=0; i<BUILDMENU_ITEMS;i++)
+                            {
+                                buildMenuButtons[i].onRelease();
+                            }
+                            buildMenuButtons[0].onClick();
                             SDL_ShowCursor(0);
 
                             //Toggle Build Mode
-                            if (roadButton.isClicked())
+                            if (buildMenuButtons[0].isClicked())
                             {
                                 buildMode = true;
                                 buildingID = 1;
@@ -245,16 +250,19 @@ int main (int argc, char* args[])
 
                         }
                         //Start building fences
-                        if (checkUICollision(x,y,fenceButton) == true)
+                        if (checkUICollision(x,y,buildMenuButtons[1]) == true)
                         {
-                            fenceButton.onClick();
-                            roadButton.onRelease();
-                            buildLabButton.onRelease();
-                            buildDockButton.onRelease();
+                            //Close build menu elements
+                            for (int i=0; i<BUILDMENU_ITEMS;i++)
+                            {
+                                buildMenuButtons[i].onRelease();
+                            }
+                            buildMenuButtons[1].onClick();
+
                             SDL_ShowCursor(0);
 
                              //Toggle Build Mode
-                            if (fenceButton.isClicked())
+                            if (buildMenuButtons[1].isClicked())
                             {
                                 buildMode = true;
                                 buildingID = 3;
@@ -271,17 +279,19 @@ int main (int argc, char* args[])
                             }
                         }
                         //Build a lab
-                        if (checkUICollision(x,y,buildLabButton) == true)
+                        if (checkUICollision(x,y,buildMenuButtons[2]) == true)
                         {
+
+                            //Close build menu elements
+                            for (int i=0; i<BUILDMENU_ITEMS;i++)
+                            {
+                                buildMenuButtons[i].onRelease();
+                            }
                             //Click button, release all others
-                            buildLabButton.onClick();
-                            roadButton.onRelease();
-                            fenceButton.onRelease();
-                            buildDockButton.onRelease();
-                            SDL_ShowCursor(0);
+                            buildMenuButtons[2].onClick();
 
                             //Toggle Build Mode
-                            if (buildLabButton.isClicked())
+                            if (buildMenuButtons[2].isClicked())
                             {
                                 buildMode = true;
                                 buildingID = 2;
@@ -300,17 +310,20 @@ int main (int argc, char* args[])
                         }
 
                         //Build a lab
-                        if (checkUICollision(x,y,buildDockButton) == true)
+                        if (checkUICollision(x,y,buildMenuButtons[3]) == true)
                         {
+
+                            //Close build menu elements
+                            for (int i=0; i<BUILDMENU_ITEMS;i++)
+                            {
+                                buildMenuButtons[i].onRelease();
+                            }
                             //Click button, release all others
-                            buildDockButton.onClick();
-                            roadButton.onRelease();
-                            fenceButton.onRelease();
-                            buildLabButton.onRelease();
-                            SDL_ShowCursor(0);
+                            buildMenuButtons[3].onClick();
+
 
                             //Toggle Build Mode
-                            if (buildDockButton.isClicked())
+                            if (buildMenuButtons[3].isClicked())
                             {
                                 buildMode = true;
                                 buildingID = 4;
@@ -391,35 +404,20 @@ int main (int argc, char* args[])
              BuildMenuOverlay.applySurface(renderer);
          }
          //Build -> road
-         if (roadButton.isShown())
+         for (int i=0;i<BUILDMENU_ITEMS;i++)
          {
-             roadButton.applySurface(renderer);
+             if (buildMenuButtons[i].isShown())
+             {
+                 buildMenuButtons[i].applySurface(renderer);
+             }
          }
-         //build -> Fence
-        if (fenceButton.isShown())
-         {
-             fenceButton.applySurface(renderer);
-         }
+
          //global ui -> Status backgroun
          if (CornerStatusOverlay.isShown())
          {
              CornerStatusOverlay.applySurface(renderer);
          }
-         //build -> research lab
-         if (buildLabButton.isShown())
-         {
-             buildLabButton.applySurface(renderer);
-         }
-         //build -> dock
-         if (buildDockButton.isShown())
-         {
-             buildDockButton.applySurface(renderer);
-         }
-         //build -> Path
-         if (buildPathButton.isShown())
-         {
-             buildPathButton.applySurface(renderer);
-         }
+
 
          //labels
          dateLabel.printLabel(renderer);

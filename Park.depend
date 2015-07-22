@@ -1,9 +1,9 @@
 # depslib dependency file v1.0
-1437444190 source:c:\park\park\button.cpp
+1437532323 source:c:\park\park\button.cpp
 	"Button.h"
 	<iostream>
 
-1397940876 c:\park\park\button.h
+1437532323 c:\park\park\button.h
 	"SDL_Image.h"
 	<String>
 
@@ -345,7 +345,7 @@
 	<math.h>
 	<iostream>
 
-1437442143 source:c:\park\park\island.cpp
+1437532323 source:c:\park\park\island.cpp
 	"Island.h"
 	"SDL_Image.h"
 	<iostream>
@@ -395,7 +395,7 @@
 1397880215 source:c:\park\park\label.cpp
 	"Label.h"
 
-1437452908 source:c:\park\park\main.cpp
+1437533653 source:c:\park\park\main.cpp
 	<iostream>
 	<stdio.h>
 	"window.h"
