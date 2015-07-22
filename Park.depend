@@ -395,7 +395,7 @@
 1437540888 source:c:\park\park\label.cpp
 	"Label.h"
 
-1437542193 source:c:\park\park\main.cpp
+1437542944 source:c:\park\park\main.cpp
 	<iostream>
 	<stdio.h>
 	"window.h"

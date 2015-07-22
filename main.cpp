@@ -204,6 +204,8 @@ int main (int argc, char* args[])
                         {
                             buildMenuButtons[i].hide();
                             buildMenuButtons[i].onRelease();
+                            buildingContextOverlay.hide();
+                            mainLabels[3].hide();
                         }
                         BuildMenuOverlay.hide();
 
@@ -278,14 +280,11 @@ int main (int argc, char* args[])
                                 }
                                 else
                                 {
-                                    if ((buildingID) != 1)
-                                    {
-                                        buildMode = false;
-                                        buildingID = 0;
-                                        mouseCursor.updateCursorColor(255,255,255);
-                                        mouseCursor.updateSize(1);
-                                        SDL_ShowCursor(1);
-                                    }
+                                    buildMode = false;
+                                    buildingID = 0;
+                                    mouseCursor.updateCursorColor(255,255,255);
+                                    mouseCursor.updateSize(1);
+                                    SDL_ShowCursor(1);
                                 }
                         }
                     }
