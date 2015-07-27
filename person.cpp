@@ -4,8 +4,8 @@ Person::Person()
 {
     position.x = 0;
     position.y = 0;
-    position.w=0;
-    position.h=0;
+    position.w=17;
+    position.h=10;
     angle = 180;
     setClip(0);
     genDer();
@@ -69,29 +69,7 @@ void Person::applySurface(SDL_Renderer* renderer,int x, int y)
 {
 
     SDL_Point* center = NULL;
-    SDL_Rect footQuad;
     SDL_Rect renderQuad = { position.x + x,position.y + y, position.w, position.h };
-
-
-        if (foot >= 15)
-        {
-            footQuad.x = leftFoot.x + x;
-            footQuad.y = leftFoot.y + y;
-            footQuad.w = leftFoot.w;
-            footQuad.h = leftFoot.h;
-        }
-        else
-        {
-
-            footQuad.x = rightFoot.x + x;
-            footQuad.y = rightFoot.y + y;
-            footQuad.w = rightFoot.w;
-            footQuad.h = rightFoot.h;
-        }
-
-   // SDL_RenderCopy(renderer,texture,&frame,&tmppos);
-
-   // SDL_RenderCopyEx(renderer,feetTexture,&feetRect,&footQuad,angle,center,SDL_FLIP_NONE);
 
     SDL_RenderCopyEx( renderer, texture, &frame, &renderQuad, angle, center, SDL_FLIP_NONE );
 
@@ -103,30 +81,19 @@ void Person::setClip(int clipID)
     frame.y = 0;
     frame.w = 17;
     frame.h = 10;
-
-    feetRect.x=0;
-    feetRect.y=0;
-    feetRect.w=6;
-    feetRect.h=9;
 }
 
 void Person::newPerson(int x, int y, SDL_Renderer* renderer)
 {
+    genDer();
+    genName();
+    genAge();
    //Set position
     position.x = x;
     position.y = y;
     position.w=9;
     position.h=6;
-
-    leftFoot.x = 0;
-    leftFoot.y = 0;
-    leftFoot.w=6;
-    leftFoot.h=9;
-
-    leftFoot.x = 0;
-    leftFoot.y = 0;
-    rightFoot.w=6;
-    rightFoot.h=9;
+    angle = 180;
 
     //default clip
     setClip(0);
@@ -143,8 +110,6 @@ void Person::newPerson(int x, int y, SDL_Renderer* renderer)
     {
         texture = loadTexture("persongirl.bmp",renderer);
     }
-
-    feetTexture = loadTexture("foot.bmp",renderer);
 
     moveQueue.resize(6);
 
@@ -235,8 +200,6 @@ void Person::calculateMovements(int up, int down, int left, int right)
             cycleMoves();
         }
 
-            moveFeet();
-
     }
 
 }
@@ -281,10 +244,10 @@ void Person::onMouseOver()
         switch (direction)
         {
         case 0:
-            highlight+=10;
+            highlight+=30;
             break;
         case 1:
-            highlight-=10;
+            highlight-=30;
             break;
         }
 
@@ -380,21 +343,7 @@ void Person::genDer()
     gender = (rand() % 2) + 1;
 }
 
-void Person::moveFeet()
-{
-    //calculate foot positions
-    leftFoot.x = position.x;
-    leftFoot.y = position.y;
 
-    rightFoot.x = position.x + 7;
-    rightFoot.y = position.y;
-
-    foot++;
-    if (foot > 31)
-    {
-        foot = 1;
-    }
-}
 
 void Person::notMoving()
 {

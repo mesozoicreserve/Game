@@ -14,20 +14,25 @@
 #include "Timer.h"
 #include "gameClock.h"
 #include "Label.h"
+#include "Appointment.h"
+#include "MainMenu.h"
 
 using namespace std;
 
 bool checkUICollision(int x, int y, Button buttonToCheck);
 void drawBackground(SDL_Renderer*,int,int);
 bool isCursorInButton(Button);
-void buildButtonsOff();
+
 SDL_Texture* testButton;
 
 int main (int argc, char* args[])
 {
 
-    SDL_Event event;
+    //Main menu switch
+    bool gameStarted = false;
 
+    SDL_Event event;
+    bool expired=false;
     const int FPS = 60;
     const int SCREEN_TICKS_PER_FRAME = 1000 / FPS;
 
@@ -35,7 +40,9 @@ int main (int argc, char* args[])
 
     SDL_Renderer* renderer = aWindow.getRenderer();
 
+    MainMenu mainMenu(renderer);
     Island gameIsland(renderer);
+
 
     gameClock dateTime(8,1,2017,8,0);
 
@@ -61,13 +68,15 @@ int main (int argc, char* args[])
     mainLabels[0].createLabel(995,410,"ISLA DOUCHEBAR",28,true,renderer);
     mainLabels[1].createLabel(1030,450,dateTime.getDate(),14,true,renderer);
     mainLabels[2].createLabel(1100,450,dateTime.getTime(),14,true,renderer);
-    mainLabels[3].createLabel(210,5,"",16,false,renderer);
+    mainLabels[3].createLabel(210,5,"0",16,false,renderer);
 
     Timer fpsTimer;
     Timer capTimer;
 
-    Person testPerson(100,100,renderer);
+    //Appointment for test
+    Appointment genGuests(1);
 
+    //Cursor
     Cursor mouseCursor(renderer);
 
     bool buildMode = false;
@@ -90,33 +99,65 @@ int main (int argc, char* args[])
     while (quit == false)
     {
         capTimer.start();
+
+        //Mouse stuff. Hopefully this works and the mouse gets set every frame. Might cut down on lag?
+        int x,y;
+        SDL_GetMouseState( &x, &y );
+
+        int relativeX = aWindow.getX();
+        int relativeY = aWindow.getY();
+
+        int diffX = (x % 25) - (relativeX % 25);
+        int diffY = (y % 25) - (relativeY % 25);
+
+        screenRelativeX=x-diffX;
+        screenRelativeY=y-diffY;
+
+        mouseCursor.moveX(screenRelativeX);
+        mouseCursor.moveY(screenRelativeY);
+
+        mouseCursor.setAbsoluteX(mouseCursor.getX() - aWindow.getX());
+        mouseCursor.setAbsoluteY(mouseCursor.getY() - aWindow.getY());
+
+       /*) while (!gameStarted)
+        {
+                while( SDL_PollEvent( &event ) != 0 )
+                {
+                    //User requests quit
+                    if( event.type == SDL_QUIT )
+                    {
+                        quit = true;
+                    }
+                    else if (event.type == SDL_MOUSEMOTION)
+                    {
+                        //Check to see if Mouse is on a button
+                        mainMenu.checkButtonMouseOver(x,y);
+                    }
+
+                }
+                mainMenu.applySurface(renderer);
+                SDL_RenderPresent(renderer);
+
+
+        }*/
+
+
         while( SDL_PollEvent( &event ) != 0 )
         {
+
+
+
+        /* ******************************************************
+                MAIN GAME SEQUENCE
+        */
             //User requests quit
             if( event.type == SDL_QUIT )
             {
                 quit = true;
+                gameStarted = true;
             }
             else if (event.type == SDL_MOUSEMOTION)
             {
-                int x,y;
-                SDL_GetMouseState( &x, &y );
-
-                int relativeX = aWindow.getX();
-                int relativeY = aWindow.getY();
-
-                int diffX = (x % 25) - (relativeX % 25);
-                int diffY = (y % 25) - (relativeY % 25);
-
-                screenRelativeX=x-diffX;
-                screenRelativeY=y-diffY;
-
-                mouseCursor.moveX(screenRelativeX);
-                mouseCursor.moveY(screenRelativeY);
-
-                mouseCursor.setAbsoluteX(mouseCursor.getX() - aWindow.getX());
-                mouseCursor.setAbsoluteY(mouseCursor.getY() - aWindow.getY());
-
 
                 //Build mode on = Update mouse highlight with proper color
                 if (buildMode == true)
@@ -173,7 +214,7 @@ int main (int argc, char* args[])
                 int x,y;
                 SDL_GetMouseState( &x, &y );
 
-                gameIsland.checkGuestMouseClick();
+//                gameIsland.checkGuestMouseClick();
                 //Build mode
                 if (buildMode == true && buildingID != 0)
                 {
@@ -324,20 +365,26 @@ int main (int argc, char* args[])
         int scrollY=aWindow.getY();
         int scrollX=aWindow.getX();
 
-        gameIsland.checkGuestMouseOver(mouseCursor.getAbsoluteX(),mouseCursor.getAbsoluteY(),renderer);
+        if (gameIsland.getNumGuests() > 0 )
+        {
+                    gameIsland.checkGuestMouseOver(mouseCursor.getAbsoluteX(),mouseCursor.getAbsoluteY(),renderer);
+                    gameIsland.guestAI();
+        }
 
         //AI
-        gameIsland.guestAI();
 
         //Clear screen
         SDL_RenderClear(renderer);
 
         //draw screen
         //Rendering tasks
-
         gameIsland.drawBackground(renderer,scrollX,scrollY);
         gameIsland.renderStructures(renderer,scrollX,scrollY);
-        gameIsland.renderPeople(renderer,scrollX,scrollY);
+
+        if (gameIsland.getNumGuests() > 0 )
+        {
+            gameIsland.renderPeople(renderer,scrollX,scrollY);
+        }
 
         //UI Elements
 
@@ -397,6 +444,29 @@ int main (int argc, char* args[])
         //Flip screen
         SDL_RenderPresent(renderer);
 
+
+        //Trigger this once per game second, hopefully
+        if (countedFrames == 0)
+        {
+            //Check appointments - do we have to do anything?
+            if (genGuests.isActive())
+            {
+                //Check to see the date is right
+                if (dateTime.getDate() == genGuests.getAppDate() || genGuests.getAppDate() == "Daily")
+                {
+                    //Check the time
+                    if (dateTime.getTime() == genGuests.getAppTime())
+                    {
+                        //Eventually this will call a function to take care of the action,
+                        //right now i'm just lazy because there's only one
+                        gameIsland.guestGenerator(renderer);
+                    }
+                }
+            }
+        }
+
+
+
         countedFrames++;
 
         if (countedFrames >= 60)
@@ -409,6 +479,7 @@ int main (int argc, char* args[])
             countedFrames = 0;
         }
 
+
         //If frame finished early
         int frameTicks = capTimer.getTicks();
         if( frameTicks < SCREEN_TICKS_PER_FRAME )
@@ -418,10 +489,19 @@ int main (int argc, char* args[])
         }
     }
 
+
     if (renderer != NULL)
     {
         SDL_DestroyRenderer(renderer);
     }
+
+
+    if (gameIsland.getNumGuests() > 0)
+    {
+        gameIsland.printGuests();
+        system("Pause");
+    }
+
 
     return 0;
 }
@@ -475,5 +555,6 @@ bool isCursorInButton(Button buttonToCheck)
             }
          }
     }
+
 
 

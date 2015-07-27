@@ -57,6 +57,7 @@ void Button::newButton(std::string buttonName, int iX, int iY, bool vis)
     position.y=iY;
     shown = vis;
     buttonName="undefined";
+    clicked=false;
 
     IMG_DIR = "res/img/";
 
@@ -123,6 +124,14 @@ void Button::genButton()
         alpha=255;
         buttonName="Dirt Path";
     }
+    if(name=="StartGame")
+    {
+        position.w=144;
+        position.h=39;
+        resName = IMG_DIR + "buttons/newgame.bmp";
+        alpha = 255;
+        buttonName="New Game";
+    }
 }
 
 
@@ -178,7 +187,6 @@ void Button::mouseIn()
 void Button::mouseOut()
 {
     SDL_SetTextureColorMod( buttonTexture, 255, 255, 255 );
-
 }
 
 bool Button::isClicked()

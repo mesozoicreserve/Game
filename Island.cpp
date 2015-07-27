@@ -1,23 +1,30 @@
 #include "Island.h"
 #include "SDL_Image.h"
 #include <iostream>
-
+#include <vector>
+#include <algorithm>
 
 Island::Island()
 {
     allocateMemory();
+    srand(time(0));
 
-    srand(time(NULL));
     genWorld();
+
 }
 
 void Island::allocateMemory()
 {
+    //Allocate Map space
     grid = (Tile**)malloc(MAP_X * sizeof(Tile*));
+
+    //Allocate animation space
     featureGrid = (Tile**)malloc(MAP_X * sizeof(Tile*));
 
+    //Allocate building space
     structureMap = (Structure**)malloc(MAP_X*sizeof(Structure*));
 
+    //2D-arrayify the maps
     for (int i=0;i<MAP_X;i++)
     {
         grid[i] = (Tile*)malloc(MAP_Y*sizeof(Tile));
@@ -29,8 +36,6 @@ void Island::allocateMemory()
 Island::Island(SDL_Renderer* renderer)
 {
     allocateMemory();
-
-    srand(time(NULL));
 
     //load main textures
     backgroundTexture = loadTexture("terrain.bmp",renderer);
@@ -47,11 +52,9 @@ Island::Island(SDL_Renderer* renderer)
 
     genWorld();
 
+    //guestList.push_back(test);
+   // guestGenerator(renderer);
 
-    for (int i = 0; i < NUM_GUESTS; i++)
-    {
-        aPerson[i].newPerson((20 * i) + 400 ,400,renderer);
-    }
 }
 
 
@@ -61,6 +64,9 @@ Tile Island::getTile(int x, int y)
 }
 void Island::genWorld()
 {
+
+    numGuests = 0;
+
     //GENERATE THE BASE
     for (int i=0;i<MAP_Y;i++)
     {
@@ -706,10 +712,10 @@ bool Island::isTileBuildable(int x, int y, int buildingID)
 
 void Island::renderPeople(SDL_Renderer* renderer, int scrollX, int scrollY)
 {
-  for (int i=0;i<NUM_GUESTS;i++)
+  for (int i=0;i<numGuests;i++)
     {
-        aPerson[i].applySurface(renderer,scrollX,scrollY);
-    }
+      guestList[i].applySurface(renderer,scrollX,scrollY);
+   }
 }
 
 Island::~Island()
@@ -731,13 +737,15 @@ Island::~Island()
     structureMap=NULL;
 }
 
+
 //Guest AI
+
 void Island::guestAI()
 {
-    for (int i=0;i<NUM_GUESTS;i++)
+    for (int i=0;i<numGuests;i++)
     {
-        int tileX = aPerson[i].getX() / 25;
-        int tileY = aPerson[i].getY() / 25;
+        int tileX = guestList[i].getX() / 25;
+        int tileY = guestList[i].getY() / 25;
 
         //Get types of the tiles up/down/left right for collision detection
         int typeUp = grid[tileX][tileY-1].getType();
@@ -746,7 +754,7 @@ void Island::guestAI()
         int typeRight = grid[tileX+1][tileY].getType();
 
 
-        aPerson[i].calculateMovements(typeUp,typeDown,typeLeft,typeRight);
+        guestList[i].calculateMovements(typeUp,typeDown,typeLeft,typeRight);
     }
 
 }
@@ -755,17 +763,17 @@ void Island::checkGuestMouseOver(int cursorX,int cursorY,SDL_Renderer* renderer)
 {
     bool flagOn = false;
 
-    for (int i=0;i<NUM_GUESTS;i++)
+    for (int i=0;i<numGuests;i++)
     {
-        if ((cursorX <= (aPerson[i].getX() + 17 ) && cursorX >= (aPerson[i].getX() - 10)) && flagOn == false)
+        if ((cursorX <= (guestList[i].getX() + 17 ) && cursorX >= (guestList[i].getX() - 10)) && flagOn == false)
         {
-            if ((cursorY >= (aPerson[i].getY() - 10) && (cursorY <= aPerson[i].getY() + 15)) && flagOn == false)
+            if ((cursorY >= (guestList[i].getY() - 10) && (cursorY <= guestList[i].getY() + 15)) && flagOn == false)
             {
-                 aPerson[i].onMouseOver();
+                 guestList[i].onMouseOver();
                  if (guestMouseOverOverlay.isLocked() == false)
                  {
-                    personNameLabel.setText(aPerson[i].getName(),renderer);
-                    personAgeLabel.setText(aPerson[i].getAge(),renderer);
+                    personNameLabel.setText(guestList[i].getName(),renderer);
+                    personAgeLabel.setText(guestList[i].getAge(),renderer);
                  }
                  personNameLabel.show();
                  personAgeLabel.show();
@@ -775,7 +783,7 @@ void Island::checkGuestMouseOver(int cursorX,int cursorY,SDL_Renderer* renderer)
             }
             else
             {
-                aPerson[i].onMouseOut();
+                guestList[i].onMouseOut();
                 if(personNameLabel.isShown())
                 {
                     personNameLabel.hide();
@@ -787,7 +795,7 @@ void Island::checkGuestMouseOver(int cursorX,int cursorY,SDL_Renderer* renderer)
         }
         else
         {
-            aPerson[i].onMouseOut();
+            guestList[i].onMouseOut();
         }
 
     }
@@ -796,16 +804,16 @@ void Island::checkGuestMouseOver(int cursorX,int cursorY,SDL_Renderer* renderer)
 void Island::checkGuestMouseClick()
 {
 
-  for (int i=0;i<NUM_GUESTS;i++)
+  for (int i=0;i<numGuests;i++)
   {
-    aPerson[i].onMouseOut();
-    aPerson[i].unClick();
+    guestList[i].onMouseOut();
+    guestList[i].unClick();
     guestMouseOverOverlay.unLock();
   }
 
   if (selectedIndex > -1)
   {
-      aPerson[selectedIndex].onMouseClick();
+      guestList[selectedIndex].onMouseClick();
       guestMouseOverOverlay.lock();
   }
 
@@ -826,3 +834,33 @@ void Island::printText(SDL_Renderer* renderer)
         personAgeLabel.printLabel(renderer);
     }
 }
+
+
+
+void Island::guestGenerator(SDL_Renderer* renderer)
+{
+    for (int i = 0; i < 100; i++)
+    {
+        Person test((15*i) + 300,400,renderer);
+        guestList.push_back(test);
+        guestList[i].newPerson((15*i) + 300,400,renderer);
+
+        numGuests++;
+    }
+
+}
+
+int Island::getNumGuests()
+{
+    return numGuests;
+}
+
+void Island::printGuests()
+{
+
+    for (int i = 0; i < numGuests; i++)
+    {
+        std::cout << i << ": " << guestList[i].getName() << endl;
+    }
+}
+

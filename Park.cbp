@@ -40,6 +40,7 @@
 			<Add directory="../../SDL2-devel-2.0.0-mingw/SDL2_image-2.0.0/i686-w64-mingw32/lib" />
 			<Add directory="../../SDL2-devel-2.0.0-mingw/SDL2_ttf-2.0.12/i686-w64-mingw32/lib" />
 		</Linker>
+		<Unit filename="Appointment.h" />
 		<Unit filename="Button.cpp" />
 		<Unit filename="Button.h" />
 		<Unit filename="Cursor.cpp" />
@@ -48,6 +49,10 @@
 		<Unit filename="Island.cpp" />
 		<Unit filename="Island.h" />
 		<Unit filename="Label.h" />
+		<Unit filename="MainMenu.h" />
+		<Unit filename="Player.c">
+			<Option compilerVar="CC" />
+		</Unit>
 		<Unit filename="Structure.cpp" />
 		<Unit filename="Structure.h" />
 		<Unit filename="Tile.cpp" />

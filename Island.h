@@ -1,6 +1,6 @@
 #define MAP_X 200
 #define MAP_Y 200
-#define NUM_GUESTS 150
+#define NUM_GUESTS 5
 
 #include "Tile.h"
 #include "Structure.h"
@@ -12,6 +12,8 @@
 #include "Label.h"
 #include "overlay.h"
 #include <string>
+#include <vector>
+#include <algorithm>
 
 
 class Island
@@ -23,8 +25,9 @@ private:
     SDL_Texture* backgroundTexture;
     SDL_Texture* structureTexture;
     SDL_Texture* featureTexture;
-    Person aPerson[NUM_GUESTS];
+    vector<Person> guestList;
     int selectedIndex;
+    int numGuests;
 
     //UI elements bound to the game world
     Overlay guestMouseOverOverlay;
@@ -56,4 +59,9 @@ public:
     void checkGuestMouseClick();
     void printText(SDL_Renderer* renderer);
     void updateFences();
+    int getNumGuests();
+
+    //Generates guests
+    void guestGenerator(SDL_Renderer*);
+    void printGuests();
 };
