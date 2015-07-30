@@ -50,9 +50,6 @@
 		<Unit filename="Island.h" />
 		<Unit filename="Label.h" />
 		<Unit filename="MainMenu.h" />
-		<Unit filename="Player.c">
-			<Option compilerVar="CC" />
-		</Unit>
 		<Unit filename="Structure.cpp" />
 		<Unit filename="Structure.h" />
 		<Unit filename="Tile.cpp" />

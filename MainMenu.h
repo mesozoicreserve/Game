@@ -4,12 +4,14 @@ class MainMenu
 private:
     SDL_Texture* background;
     Button startButton;
+    Button loadButton;
+    Button optionsButton;
 public:
     void applySurface(SDL_Renderer*);
     SDL_Texture* loadTexture(std::string,SDL_Renderer*);
     MainMenu();
     MainMenu(SDL_Renderer*);
-    void checkButtonMouseOver(int,int);
+    bool checkButtonMouseOver(int,int,bool);
     bool mmCheckUICollision(int x, int y);
 
 };
@@ -23,7 +25,10 @@ MainMenu::MainMenu()
 MainMenu::MainMenu(SDL_Renderer* renderer)
 {
     background = loadTexture("title.bmp",renderer);
-    startButton.newButton("StartGame",250,400,true);
+    startButton.newButton("StartGame",375,400,true);
+    loadButton.newButton("MainMenuLoadGame",510,400,true);
+    optionsButton.newButton("MainMenuOptions",635,400,true);
+
 }
 
 SDL_Texture* MainMenu::loadTexture( std::string path,SDL_Renderer* renderer )
@@ -64,22 +69,33 @@ void MainMenu::applySurface(SDL_Renderer* renderer)
 
     //Buttons
     startButton.applySurface(renderer);
-
-
+    loadButton.applySurface(renderer);
+    optionsButton.applySurface(renderer);
 }
 
 
-void MainMenu::checkButtonMouseOver(int x, int y)
+bool MainMenu::checkButtonMouseOver(int x, int y, bool clickflag)
 {
     if (!startButton.isClicked())
          {
-            if(mmCheckUICollision(x,y))
+             //Check mouse over, no click
+            if(mmCheckUICollision(x,y) && clickflag == false)
             {
                 startButton.mouseIn();
+                return false;
             }
+            //button clicked
+            else if (mmCheckUICollision(x,y) && clickflag==true)
+            {
+                //START GAME
+                startButton.onClick();
+                return true;
+            }
+            //otherwise mouseout
             else
             {
                 startButton.mouseOut();
+                return false;
             }
          }
 

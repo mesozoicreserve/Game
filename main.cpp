@@ -119,7 +119,7 @@ int main (int argc, char* args[])
         mouseCursor.setAbsoluteX(mouseCursor.getX() - aWindow.getX());
         mouseCursor.setAbsoluteY(mouseCursor.getY() - aWindow.getY());
 
-       /*) while (!gameStarted)
+        if (!gameStarted)
         {
                 while( SDL_PollEvent( &event ) != 0 )
                 {
@@ -131,7 +131,20 @@ int main (int argc, char* args[])
                     else if (event.type == SDL_MOUSEMOTION)
                     {
                         //Check to see if Mouse is on a button
-                        mainMenu.checkButtonMouseOver(x,y);
+                        if (mainMenu.checkButtonMouseOver(x,y,false))
+                        {
+
+                        }
+                    }
+                    else if (event.type == SDL_MOUSEBUTTONDOWN)
+                    {
+                        //Check to see if Mouse is on a button
+                        if (mainMenu.checkButtonMouseOver(x,y,true))
+                        {
+                            //GAME START CODE GOES HERE
+                            gameStarted = true;
+                        }
+
                     }
 
                 }
@@ -139,11 +152,12 @@ int main (int argc, char* args[])
                 SDL_RenderPresent(renderer);
 
 
-        }*/
-
-
-        while( SDL_PollEvent( &event ) != 0 )
+        }
+        else
         {
+
+            while( SDL_PollEvent( &event ) != 0 )
+            {
 
 
 
@@ -465,7 +479,7 @@ int main (int argc, char* args[])
             }
         }
 
-
+        }
 
         countedFrames++;
 

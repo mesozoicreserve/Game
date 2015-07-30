@@ -126,9 +126,25 @@ void Button::genButton()
     }
     if(name=="StartGame")
     {
-        position.w=144;
-        position.h=39;
+        position.w=115;
+        position.h=35;
         resName = IMG_DIR + "buttons/newgame.bmp";
+        alpha = 255;
+        buttonName="New Game";
+    }
+    if(name=="MainMenuLoadGame")
+    {
+        position.w=115;
+        position.h=35;
+        resName = IMG_DIR + "buttons/loadgame.bmp";
+        alpha = 255;
+        buttonName="New Game";
+    }
+    if(name=="MainMenuOptions")
+    {
+        position.w=115;
+        position.h=35;
+        resName = IMG_DIR + "buttons/options.bmp";
         alpha = 255;
         buttonName="New Game";
     }
